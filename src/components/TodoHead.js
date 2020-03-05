@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const TodoHeadBlock = styled.div`
   box-sizing: border-box;
@@ -56,8 +57,16 @@ function TodoHead() {
           <h2 className="name">프로그라피 프론트 김세준</h2>
 
           <ul className="menu clearfix">
-            <ul className="menu-item"></ul>
-            <ul className="menu-item"></ul>
+            <ul className="menu-item">
+              <Link to="/">
+                <button>TodoList</button>
+              </Link>
+            </ul>
+            <ul className="menu-item">
+              <Link to="/movie">
+                <button>Movie</button>
+              </Link>
+            </ul>
           </ul>
         </div>
       </header>

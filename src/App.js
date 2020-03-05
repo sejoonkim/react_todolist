@@ -1,25 +1,38 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { createGlobalStyle } from "styled-components";
+import TodoTemplate from "./components/TodoTemplate";
+import TodoHead from "./components/TodoHead";
+import TodoList from "./components/TodoList";
+import TodoCreate from "./components/TodoCreate";
+import { TodoProvider } from "./components/TodoContext";
+import GetMovieTitle from "./components/GetMovieTitle";
+import { Route } from "react-router-dom";
+
+// create global style
+const GlobalStyle = createGlobalStyle`
+  body {
+    background: #e9ecef;
+  }
+
+`;
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <TodoProvider>
+        <GlobalStyle />
+        <TodoHead />
+        <Route path="/" exact>
+          <TodoTemplate>
+            <TodoCreate />
+            <TodoList />
+          </TodoTemplate>
+        </Route>
+        <Route path="/movie">
+          <GetMovieTitle />
+        </Route>
+      </TodoProvider>
+    </>
   );
 }
 
