@@ -54,6 +54,11 @@ function TodoHead() {
       <header>
         <div className="container">
           <h2 className="name">프로그라피 프론트 김세준</h2>
+
+          <ul className="menu clearfix">
+            <ul className="menu-item"></ul>
+            <ul className="menu-item"></ul>
+          </ul>
         </div>
       </header>
     </TodoHeadBlock>

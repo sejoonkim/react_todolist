@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
+import { useTodoDispatch, useTodoNextId } from "./TodoContext";
 
 const InsertFormPositioner = styled.div`
   width: 100%;
@@ -29,7 +30,39 @@ const Input = styled.input`
 `;
 
 function TodoCreate() {
-  return <Input placeholder="type todo, press enter" autoFocus />;
+  const [value, setValue] = useState("");
+  const dispatch = useTodoDispatch();
+  const nextId = useTodoNextId();
+
+  const onChange = e => setValue(e.target.value);
+  const onSubmit = e => {
+    e.preventDefault();
+    dispatch({
+      type: "CREATE",
+      todo: {
+        id: nextId.current,
+        text: value,
+        done: false
+      }
+    });
+    setValue("");
+    nextId.current += 1;
+  };
+
+  return (
+    <>
+      <InsertFormPositioner>
+        <InsertForm onSubmit={onSubmit}>
+          <Input
+            placeholder="할 일 작성 후, [Enter]키 누르세요!"
+            autoFocus
+            onChange={onChange}
+            value={value}
+          />
+        </InsertForm>
+      </InsertFormPositioner>
+    </>
+  );
 }
 
 export default React.memo(TodoCreate);

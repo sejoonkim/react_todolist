@@ -1,5 +1,6 @@
 import React from "react";
 import styled, { css } from "styled-components";
+import { useTodoDispatch } from "./TodoContext";
 
 const Text = styled.div`
   flex: 1;
@@ -45,6 +46,7 @@ const TodoItemBlock = styled.div`
     font-size: 80%;
     color: #82b1ff;
   }
+
   .delete {
     background-color: Transparent;
     background-repeat: no-repeat;
@@ -58,13 +60,31 @@ const TodoItemBlock = styled.div`
 `;
 
 function TodoItem({ id, done, text }) {
+  const dispatch = useTodoDispatch();
+  const onToggle = () =>
+    dispatch({
+      type: "TOGGLE",
+      id
+    });
+  const onModify = () =>
+    dispatch({
+      type: "MODIFY",
+      id
+    });
+  const onRemove = () =>
+    dispatch({
+      type: "REMOVE",
+      id
+    });
   return (
     <TodoItemBlock>
-      <Text done={done}>{text}</Text>
-      <Modify>
+      <Text onClick={onToggle} done={done}>
+        {text}
+      </Text>
+      <Modify onClick={onModify}>
         <button className="modify">수정</button>
       </Modify>
-      <Remove>
+      <Remove onClick={onRemove}>
         <button className="delete">삭제</button>
       </Remove>
     </TodoItemBlock>
