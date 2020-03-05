@@ -15,7 +15,7 @@ function todoReducer(state, action) {
         todo.id === action.id
           ? {
               ...todo,
-              text: "'수정하기' 기능 구현하기"
+              text: action.word
             }
           : todo
       );

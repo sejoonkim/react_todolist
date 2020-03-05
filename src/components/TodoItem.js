@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled, { css } from "styled-components";
 import { useTodoDispatch } from "./TodoContext";
 
@@ -6,6 +6,8 @@ const Text = styled.div`
   flex: 1;
   font-size: 21px;
   color: #495057;
+  cursor: pointer;
+
   ${props =>
     props.done &&
     css`
@@ -57,9 +59,17 @@ const TodoItemBlock = styled.div`
     font-size: 80%;
     color: #ff80ab;
   }
+
+  input {
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 130%;
+  }
 `;
 
-function TodoItem({ id, done, text }) {
+function TodoItem({ id, done, text, edit }) {
+  const [mode, setMode] = useState("list");
+  const [word, setWord] = useState(text);
   const dispatch = useTodoDispatch();
   const onToggle = () =>
     dispatch({
@@ -69,7 +79,8 @@ function TodoItem({ id, done, text }) {
   const onModify = () =>
     dispatch({
       type: "MODIFY",
-      id
+      id,
+      word
     });
   const onRemove = () =>
     dispatch({
@@ -78,15 +89,33 @@ function TodoItem({ id, done, text }) {
     });
   return (
     <TodoItemBlock>
-      <Text onClick={onToggle} done={done}>
-        {text}
-      </Text>
-      <Modify onClick={onModify}>
-        <button className="modify">수정</button>
-      </Modify>
-      <Remove onClick={onRemove}>
-        <button className="delete">삭제</button>
-      </Remove>
+      {mode === "list" ? (
+        <>
+          <Text onClick={onToggle} done={done}>
+            {text}
+          </Text>
+          <Modify onClick={() => setMode("edit")}>
+            <button className="modify">수정</button>
+          </Modify>
+          <Remove onClick={onRemove}>
+            <button className="delete">삭제</button>
+          </Remove>
+        </>
+      ) : (
+        <>
+          <input
+            ref={input => input && input.focus()}
+            value={word}
+            onChange={e => setWord(e.target.value)}
+            onKeyPress={event => {
+              if (event.key === "Enter") {
+                onModify();
+                setMode("list");
+              }
+            }}
+          />
+        </>
+      )}
     </TodoItemBlock>
   );
 }

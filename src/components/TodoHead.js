@@ -59,7 +59,7 @@ function TodoHead() {
           <ul className="menu clearfix">
             <ul className="menu-item">
               <Link to="/">
-                <button>TodoList</button>
+                <button>Todos</button>
               </Link>
             </ul>
             <ul className="menu-item">
