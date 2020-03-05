@@ -64,7 +64,7 @@ function GetMovieTitle() {
   const fetchMovies = async () => {
     dispatch({ type: "LOADING" });
     try {
-      // CORS error, using proxy url
+      // CORS error(No 'Access-Control-Allow-Origin' header is present on the requested resource), using proxy url
       const response = await axios.get(
         "https://cors-anywhere.herokuapp.com/https://yts.mx/api/v2/list_movies.json?limit=50"
       );
