@@ -1,12 +1,12 @@
 # Todo List
 
-![alt]("./gif/Todos.gif")
+![alt](./gif/Todos.gif)
 
 <br/>
 
 # Movie List
 
-![alt]("./gif/MovieList.gif")
+![alt](./gif/MovieList.gif)
 
 <br/>
 
